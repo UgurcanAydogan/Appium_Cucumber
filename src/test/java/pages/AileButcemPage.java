@@ -42,6 +42,13 @@ public class AileButcemPage {
     @FindBy(xpath = "(//*[@class='android.widget.EditText'])[5]")
     public MobileElement meslekKutusu;
 
+    @FindBy(xpath = "(//*[@class='android.widget.EditText'])[1]")
+    public MobileElement aciklamaKutusu;
+    @FindBy(xpath = "(//*[@class='android.widget.EditText'])[2]")
+    public MobileElement TutarKutusu;
+
+
+
 
 
 
