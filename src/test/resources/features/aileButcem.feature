@@ -27,4 +27,4 @@ Feature: Kullanici aile butcem gorevlerini gerceklestirir
     * basariyla eklendigini dogrulayin
     * kullanici uygulamayi kapatir
 
-    .
+
