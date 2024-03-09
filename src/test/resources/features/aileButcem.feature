@@ -26,3 +26,5 @@ Feature: Kullanici aile butcem gorevlerini gerceklestirir
     * Gelir Ekle bolumunde "Ilk Gelir","Gelir Tipi","Düzensiz","Kategori" "Serbest Gelir",464 1246 tarih ve tutari belirleyin ve kaydedin
     * basariyla eklendigini dogrulayin
     * kullanici uygulamayi kapatir
+
+    .
