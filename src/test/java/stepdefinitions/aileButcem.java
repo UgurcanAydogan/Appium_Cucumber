@@ -6,13 +6,17 @@ import io.appium.java_client.android.AndroidElement;
 import io.cucumber.java.en.Given;
 import org.junit.Assert;
 import pages.AileButcemPage;
+import pages.HesabimPage;
 import utils.ConfigReader;
 import utils.Driver;
 import utils.ResuableMethods;
 
+import java.io.IOException;
+
 public class aileButcem {
     AndroidDriver<AndroidElement> driver= Driver.getAndroidDriver();
     AileButcemPage aileButcemPage=new AileButcemPage();
+    HesabimPage hesabimPage=new HesabimPage();
 
     @Given("ilk ekran ayarlarini yapin {int} {int} {int} {int} {int} {int} {int} {int} ve ardindan login {string} sayfasina ulasin")
     public void ilk_ekran_ayarlarini_yapin_ve_ardindan_login_sayfasina_ulasin(int for1,int forSart,int x1,int y1,int wait,int x2,int y2,int bekleme,String girisText) throws InterruptedException {
@@ -37,8 +41,8 @@ public class aileButcem {
     }
     @Given("hesabim sayfasindaki bilgileri degistirerek {string} {string} {string} {string} {string} degisikleri kaydedin ve dogrulayin")
     public void hesabim_sayfasindaki_bilgileri_degistirerek_degisikleri_kaydedin(String isim,String soyisim,String sehir,String yas,String meslek) {
-        aileButcemPage.textBoxVeriGirme(ConfigReader.getProperty(isim),ConfigReader.getProperty(soyisim),ConfigReader.getProperty(sehir),ConfigReader.getProperty(yas),ConfigReader.getProperty(meslek));
-        aileButcemPage.textBoxKontrol(ConfigReader.getProperty(isim),ConfigReader.getProperty(soyisim),ConfigReader.getProperty(sehir),ConfigReader.getProperty(yas),ConfigReader.getProperty(meslek));
+        hesabimPage.textBoxVeriGirme(ConfigReader.getProperty(isim),ConfigReader.getProperty(soyisim),ConfigReader.getProperty(sehir),ConfigReader.getProperty(yas),ConfigReader.getProperty(meslek));
+        hesabimPage.textBoxKontrol(ConfigReader.getProperty(isim),ConfigReader.getProperty(soyisim),ConfigReader.getProperty(sehir),ConfigReader.getProperty(yas),ConfigReader.getProperty(meslek));
     }
     @Given("kullanici uygulamayi kapatir")
     public void kullanici_uygulamayi_kapatir() {
@@ -50,22 +54,61 @@ public class aileButcem {
     public void anasayfadaki_arti_butonuna_tiklayin(int x,int y,int bekleme) throws InterruptedException {
         ResuableMethods.koordinatTiklamaMethodu(x,y,bekleme);
     }
-    @Given("{string} bolumune tiklayin")
-    public void gelir_ekle_bolumune_tiklayin(String gelirText) {
-        ResuableMethods.scrollWithUiScrollable(gelirText);
+
+
+    @Given("Gelir Ekle sayfasinda aciklama kismina {string} deger girilir")
+    public void gelir_ekle_sayfasinda_aciklama_kismina_deger_girilir(String ilkKutu) {
+        aileButcemPage.aciklamaKutusu.sendKeys(ilkKutu);
     }
+    @Given("Gelir Ekle sayfasinda {string} Gelir tipi {string} secilir")
+    public void gelir_ekle_sayfasinda_gelir_tipi_secilir(String gelirTipiButonu,String GelirTipi) {
+        ResuableMethods.scrollWithUiScrollable(gelirTipiButonu);
+        ResuableMethods.wait(1);
+        ResuableMethods.scrollWithUiScrollable(GelirTipi);
+    }
+    @Given("Gelir Ekle sayfasinda {string} Kategori {string} secilir")
+    public void gelir_ekle_sayfasinda_kategori_secilir(String kategori,String kategoriTuru) {
+        ResuableMethods.scrollWithUiScrollable(kategori);
+        ResuableMethods.wait(1);
+        ResuableMethods.scrollWithUiScrollable(kategoriTuru);
+        ResuableMethods.wait(1);
+
+
+    }
+    @Given("Gelir Ekle sayfasinda Tarih belirlemesi {int} {int} {int} {int} {int} {int} {int} {int} ve gun secimi {string} {int} {int} {int} yapilir")
+    public void gelir_ekle_sayfasinda_tarih_belirlemesi_yapilir(int for1,int forSart,int x1,int y1,int wait,int x2,int y2,int bekleme,String gun,int tiklamax1,int tiklamax2,int bekleme2) throws InterruptedException {
+        // aileButcemPage.tarihKutusu.click(); // 409,1246
+        aileButcemPage.setTarihKutusu(tiklamax1,tiklamax2,bekleme2);
+        aileButcemPage.tarihEkranKaydirmaMethodu(for1,forSart,x1,y1,wait,x2,y2,bekleme);
+        ResuableMethods.scrollWithUiScrollable(gun);
+        aileButcemPage.okButonu.click(); // 975,1377
+
+    }
+    @Given("Gelir Ekle sayfasinda Tutar {string} bilgisi girilir")
+    public void gelir_ekle_sayfasinda_tutar_bilgisi_girilir(String tutar) {
+        aileButcemPage.TutarKutusu.sendKeys(tutar);
+    }
+    @Given("{string} Butonuna text uzerinden Tiklanir")
+    public void kaydet_butonuna_tiklanir(String text) throws IOException {
+        ResuableMethods.scrollWithUiScrollable(text);
+        ResuableMethods.getScreenshot("ilk");
+
+    }
+
     @Given("Gelir Ekle bolumunde {string},{string},{string},{string} {string},{int} {int} tarih ve tutari belirleyin ve kaydedin")
     public void aciklama_gelir_tip_kategori_tarih_ve_tutari_belirleyin_ve_kaydedin(String ilkKutu,String gelirTip) {
-        aileButcemPage.aciklamaKutusu.sendKeys(ilkKutu);
-        ResuableMethods.scrollWithUiScrollable(gelirTip);
+
+
 
 
     }
     @Given("basariyla eklendigini dogrulayin")
-    public void basariyla_eklendigini_dogrulayin() {
-
+    public void basariyla_eklendigini_dogrulayin() throws IOException {
+        Assert.assertTrue(aileButcemPage.gelirEklemeCheck.isDisplayed());
+        ResuableMethods.getScreenshot("son");
 
     }
+
 
 
 }
