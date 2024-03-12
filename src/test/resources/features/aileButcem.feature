@@ -32,7 +32,6 @@ Feature: Kullanici aile butcem gorevlerini gerceklestirir
     * basariyla eklendigini dogrulayin
     * kullanici uygulamayi kapatir
 
-  @ab
   Scenario:
     * anasayfadaki arti 533 1677 0 butonuna tiklayin
     * "Gelir Ekle" Butonuna text uzerinden Tiklanir
